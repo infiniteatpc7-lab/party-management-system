@@ -1,0 +1,14 @@
+# ============================================================
+# Hostinger Shared Hosting - Root .htaccess
+# Laravel Application Entry Point Redirect
+# ============================================================
+
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect ALL requests to public/ folder (Laravel entry point)
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]

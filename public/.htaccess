@@ -5,7 +5,11 @@
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Handle Authorization Header (needed for API/Sanctum)
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
@@ -22,4 +26,18 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+# Protect sensitive files
+<FilesMatch "^\.env|composer\.(json|lock)|package(-lock)?\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHP settings for Hostinger Shared Hosting
+<IfModule mod_php.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 64M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
 </IfModule>
