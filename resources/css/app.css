@@ -1,0 +1,1256 @@
+@import 'tailwindcss';
+
+@source '../views/**/*.blade.php';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@theme {
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Leaflet marker pulse animation for current user location */
+@keyframes userLocationPulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 12px rgba(59, 130, 246, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+.user-pulse-marker {
+    width: 18px;
+    height: 18px;
+    background-color: #2563eb;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    animation: userLocationPulse 2s infinite;
+}
+
+/* ==========================================================================
+   GLOBAL: ZERO BOX-SHADOW FOR ALL THEMES (CLEAN FLAT DESIGN)
+   ========================================================================== */
+*:not(.user-pulse-marker),
+*:not(.user-pulse-marker)::before,
+*:not(.user-pulse-marker)::after {
+    box-shadow: none !important;
+    --tw-shadow: 0 0 #0000 !important;
+    --tw-shadow-colored: 0 0 #0000 !important;
+}
+
+/* ==========================================================================
+   2026 CLASSICAL GLASSMORPHIC THEME SYSTEM
+   Theme 1: Black Iris (#080813) & Frozen (#A0BDDB)
+   Theme 2: Shadow (#141414) & Citrus (#E4FD97)
+   Default: Classic Light (Untouched Slate & Indigo)
+   ========================================================================== */
+
+html {
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Base Theme Sign Out / Logout Buttons */
+.theme-logout-btn {
+    background-color: #f8fafc;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.theme-logout-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+.desktop-logout-btn {
+    color: #94a3b8;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.desktop-logout-btn:hover {
+    color: #0f172a;
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+/* Default / Classic Theme Header Accent */
+[data-theme="default"] .theme-table-head-row,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .theme-table-head-row {
+    background-color: #eef2ff !important;
+    border-bottom: 1px solid #c7d2fe !important;
+}
+
+[data-theme="default"] .theme-table-head-row th,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .theme-table-head-row th {
+    color: #4338ca !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 1: BLACK IRIS & FROZEN (#080813 / #A0BDDB)
+   -------------------------------------------------------------------------- */
+[data-theme="black-iris"] {
+    color-scheme: dark;
+}
+
+[data-theme="black-iris"],
+[data-theme="black-iris"] body {
+    background-color: #080813 !important;
+    background-image: 
+        radial-gradient(circle at 12% 18%, rgba(160, 189, 219, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 88% 82%, rgba(160, 189, 219, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(10, 10, 24, 0.8) 0%, transparent 100%) !important;
+    background-attachment: fixed !important;
+    color: #e2e8f0 !important;
+}
+
+[data-theme="black-iris"] ::selection {
+    background: #A0BDDB !important;
+    color: #080813 !important;
+}
+
+/* Glassmorphic Surfaces for Black Iris */
+[data-theme="black-iris"] aside,
+[data-theme="black-iris"] header,
+[data-theme="black-iris"] .bg-white,
+[data-theme="black-iris"] .bg-white\/95,
+[data-theme="black-iris"] .bg-white\/90,
+[data-theme="black-iris"] #delete-modal > div:nth-child(2) {
+    background: rgba(12, 13, 26, 0.72) !important;
+    backdrop-filter: blur(18px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+    border-color: rgba(160, 189, 219, 0.16) !important;
+}
+
+[data-theme="black-iris"] #mobile-drawer > div:nth-child(2) {
+    background: #0c0d1c !important;
+    border-color: rgba(160, 189, 219, 0.25) !important;
+}
+
+/* Sub-panels and secondary cards */
+[data-theme="black-iris"] main,
+[data-theme="black-iris"] .bg-slate-50 {
+    background-color: transparent !important;
+}
+
+[data-theme="black-iris"] .bg-slate-100,
+[data-theme="black-iris"] .bg-slate-50\/50,
+[data-theme="black-iris"] #mobile-theme-box {
+    background-color: rgba(20, 22, 42, 0.6) !important;
+    border-color: rgba(160, 189, 219, 0.14) !important;
+}
+
+/* Borders and Separators */
+[data-theme="black-iris"] .border-slate-200,
+[data-theme="black-iris"] .border-slate-200\/80,
+[data-theme="black-iris"] .border-slate-100,
+[data-theme="black-iris"] .border-slate-300,
+[data-theme="black-iris"] .divide-slate-200,
+[data-theme="black-iris"] .divide-slate-100 {
+    border-color: rgba(160, 189, 219, 0.14) !important;
+}
+
+/* Typography Overrides */
+[data-theme="black-iris"] .text-slate-900,
+[data-theme="black-iris"] .text-slate-800 {
+    color: #f8fafc !important;
+}
+
+[data-theme="black-iris"] .text-slate-700 {
+    color: #e2e8f0 !important;
+}
+
+[data-theme="black-iris"] .text-slate-600,
+[data-theme="black-iris"] .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+[data-theme="black-iris"] .text-slate-400 {
+    color: #64748b !important;
+}
+
+/* Primary Action Buttons & Accents (Frozen #A0BDDB) */
+[data-theme="black-iris"] .bg-indigo-600,
+[data-theme="black-iris"] a.bg-indigo-600,
+[data-theme="black-iris"] button.bg-indigo-600 {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    border-color: #A0BDDB !important;
+    font-weight: 600 !important;
+}
+
+[data-theme="black-iris"] .bg-indigo-600:hover,
+[data-theme="black-iris"] a.bg-indigo-600:hover,
+[data-theme="black-iris"] button.bg-indigo-600:hover {
+    background-color: #b8d2ec !important;
+}
+
+/* Secondary Button / Cards */
+[data-theme="black-iris"] a.bg-white,
+[data-theme="black-iris"] button.bg-white {
+    background-color: rgba(18, 20, 38, 0.7) !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(160, 189, 219, 0.2) !important;
+}
+
+/* Classical Black Hover for list items, rows, secondary buttons */
+[data-theme="black-iris"] a.bg-white:hover,
+[data-theme="black-iris"] button.bg-white:hover,
+[data-theme="black-iris"] .hover\:bg-white:hover,
+[data-theme="black-iris"] .hover\:bg-slate-50:hover,
+[data-theme="black-iris"] .hover\:bg-slate-50\/70:hover,
+[data-theme="black-iris"] .hover\:bg-slate-50\/80:hover,
+[data-theme="black-iris"] .hover\:bg-slate-50\/60:hover,
+[data-theme="black-iris"] .hover\:bg-slate-100:hover,
+[data-theme="black-iris"] [class*="hover:bg-slate-50"]:hover,
+[data-theme="black-iris"] [class*="hover:bg-slate-100"]:hover,
+[data-theme="black-iris"] [class*="hover:bg-white"]:hover,
+[data-theme="black-iris"] table tbody tr:hover,
+[data-theme="black-iris"] .divide-slate-100 > *:hover {
+    background-color: rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Navigation: Active & Hover */
+[data-theme="black-iris"] a.bg-indigo-50\/80,
+[data-theme="black-iris"] .text-indigo-600.bg-indigo-50,
+[data-theme="black-iris"] .theme-active-item {
+    background-color: rgba(160, 189, 219, 0.18) !important;
+    color: #A0BDDB !important;
+    border: none !important;
+}
+
+[data-theme="black-iris"] a.bg-indigo-50\/80 svg,
+[data-theme="black-iris"] .text-indigo-600 {
+    color: #A0BDDB !important;
+}
+
+/* Brand Gradient Avatar */
+[data-theme="black-iris"] .bg-gradient-to-tr.from-indigo-600.to-indigo-500 {
+    background: linear-gradient(135deg, #080813 0%, #1e2a44 60%, #A0BDDB 100%) !important;
+    color: #f8fafc !important;
+}
+
+/* Inputs, Selects, Textareas */
+[data-theme="black-iris"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="black-iris"] select,
+[data-theme="black-iris"] textarea {
+    background-color: rgba(8, 8, 19, 0.8) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(160, 189, 219, 0.22) !important;
+}
+
+[data-theme="black-iris"] input::placeholder,
+[data-theme="black-iris"] textarea::placeholder {
+    color: #64748b !important;
+}
+
+[data-theme="black-iris"] input:focus,
+[data-theme="black-iris"] select:focus,
+[data-theme="black-iris"] textarea:focus {
+    border-color: #A0BDDB !important;
+    outline: 2px solid rgba(160, 189, 219, 0.4) !important;
+    outline-offset: 0 !important;
+}
+
+[data-theme="black-iris"] select option {
+    background-color: #0c0d1c !important;
+    color: #ffffff !important;
+}
+
+/* Tables - Theme-Wise Header (Frozen #A0BDDB) */
+[data-theme="black-iris"] table thead,
+[data-theme="black-iris"] table thead tr,
+[data-theme="black-iris"] table thead th,
+[data-theme="black-iris"] table thead .theme-table-head-row {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    border-bottom: 1px solid rgba(8, 8, 19, 0.25) !important;
+}
+
+[data-theme="black-iris"] table thead th,
+[data-theme="black-iris"] table thead tr th,
+[data-theme="black-iris"] .theme-table-head-row th {
+    color: #080813 !important;
+    background-color: #A0BDDB !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+}
+
+[data-theme="black-iris"] table tbody tr:hover {
+    background-color: rgba(160, 189, 219, 0.06) !important;
+}
+
+/* Table - Clean Borderless Rows in Black Iris */
+[data-theme="black-iris"] #parties-data-container,
+[data-theme="black-iris"] table,
+[data-theme="black-iris"] table tbody,
+[data-theme="black-iris"] table tbody tr,
+[data-theme="black-iris"] table tbody td,
+[data-theme="black-iris"] .divide-y > *,
+[data-theme="black-iris"] .divide-slate-100 > *,
+[data-theme="black-iris"] .divide-slate-200 > * {
+    border: none !important;
+    border-color: transparent !important;
+}
+
+/* Filter Submit Buttons */
+[data-theme="black-iris"] button.bg-slate-900,
+[data-theme="black-iris"] a.bg-slate-900 {
+    background-color: rgba(160, 189, 219, 0.14) !important;
+    color: #A0BDDB !important;
+    border: 1px solid rgba(160, 189, 219, 0.3) !important;
+}
+
+[data-theme="black-iris"] button.bg-slate-900:hover,
+[data-theme="black-iris"] a.bg-slate-900:hover {
+    background-color: rgba(160, 189, 219, 0.25) !important;
+    color: #ffffff !important;
+}
+
+/* Pagination Active Items */
+[data-theme="black-iris"] [aria-current="page"] > span,
+[data-theme="black-iris"] [aria-current="page"] {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    border-color: #A0BDDB !important;
+    font-weight: 700 !important;
+}
+
+/* Segmented Toggle Buttons (Active: Frozen #A0BDDB) */
+[data-theme="black-iris"] .theme-segment-wrapper {
+    background-color: rgba(10, 11, 22, 0.9) !important;
+    border: 1px solid rgba(160, 189, 219, 0.16) !important;
+}
+
+[data-theme="black-iris"] .theme-segment-btn {
+    color: #94a3b8 !important;
+}
+
+[data-theme="black-iris"] .theme-segment-btn:hover {
+    color: #ffffff !important;
+    background-color: rgba(160, 189, 219, 0.08) !important;
+}
+
+[data-theme="black-iris"] input[type="radio"]:checked + .theme-segment-btn,
+[data-theme="black-iris"] .peer:checked ~ .theme-segment-btn,
+[data-theme="black-iris"] .peer:checked + .theme-segment-btn,
+[data-theme="black-iris"] .theme-segment-wrapper .peer:checked ~ div {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+[data-theme="black-iris"] .peer:checked ~ .theme-segment-btn .theme-priority-dot-pri {
+    background-color: #047857 !important;
+}
+
+[data-theme="black-iris"] .peer:checked ~ .theme-segment-btn .theme-priority-dot-non {
+    background-color: #334155 !important;
+}
+
+/* KPI icon backdrops & badges - all matching borderless design */
+[data-theme="black-iris"] .bg-indigo-50,
+[data-theme="black-iris"] .bg-blue-50,
+[data-theme="black-iris"] .bg-emerald-50,
+[data-theme="black-iris"] .kpi-icon-box {
+    background-color: rgba(160, 189, 219, 0.16) !important;
+    color: #A0BDDB !important;
+    border: none !important;
+}
+
+[data-theme="black-iris"] .kpi-icon-box svg {
+    color: #A0BDDB !important;
+    stroke: #A0BDDB !important;
+}
+
+[data-theme="black-iris"] .bg-rose-50 {
+    background-color: rgba(244, 63, 94, 0.15) !important;
+    color: #fda4af !important;
+    border: none !important;
+}
+
+/* Theme-based Sign Out Button */
+[data-theme="black-iris"] .theme-logout-btn {
+    background-color: rgba(160, 189, 219, 0.1) !important;
+    color: #A0BDDB !important;
+    border: 1px solid rgba(160, 189, 219, 0.25) !important;
+}
+
+[data-theme="black-iris"] .theme-logout-btn:hover {
+    background-color: rgba(160, 189, 219, 0.2) !important;
+    color: #ffffff !important;
+    border-color: rgba(160, 189, 219, 0.5) !important;
+}
+
+[data-theme="black-iris"] .desktop-logout-btn {
+    color: #64748b !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+}
+
+[data-theme="black-iris"] .desktop-logout-btn:hover {
+    color: #A0BDDB !important;
+    background-color: rgba(160, 189, 219, 0.14) !important;
+    border-color: rgba(160, 189, 219, 0.25) !important;
+}
+
+/* Mobile Sticky Bottom Nav */
+[data-theme="black-iris"] nav.lg\:hidden {
+    background: rgba(8, 8, 19, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    border-color: rgba(160, 189, 219, 0.16) !important;
+}
+
+/* Dropdown menu */
+[data-theme="black-iris"] #theme-menu-dropdown {
+    background: rgba(12, 13, 26, 0.95) !important;
+    border: 1px solid rgba(160, 189, 219, 0.25) !important;
+    backdrop-filter: blur(24px) !important;
+}
+
+/* Scrollbars */
+[data-theme="black-iris"] ::-webkit-scrollbar-track {
+    background: #080813 !important;
+}
+[data-theme="black-iris"] ::-webkit-scrollbar-thumb {
+    background: rgba(160, 189, 219, 0.35) !important;
+}
+[data-theme="black-iris"] ::-webkit-scrollbar-thumb:hover {
+    background: #A0BDDB !important;
+}
+
+/* Pulse Marker & Map Tiles */
+[data-theme="black-iris"] .user-pulse-marker {
+    background-color: #A0BDDB !important;
+    border: 3px solid #080813 !important;
+}
+
+[data-theme="black-iris"] .leaflet-tile {
+    filter: brightness(0.68) invert(1) contrast(1.7) hue-rotate(200deg) saturate(0.4) !important;
+}
+
+[data-theme="black-iris"] .leaflet-control-zoom a,
+[data-theme="black-iris"] .leaflet-bar a {
+    background: rgba(12, 13, 26, 0.85) !important;
+    color: #A0BDDB !important;
+    border-color: rgba(160, 189, 219, 0.25) !important;
+}
+
+[data-theme="black-iris"] .leaflet-popup-content-wrapper {
+    background: rgba(12, 13, 28, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(160, 189, 219, 0.25) !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="black-iris"] .leaflet-popup-tip {
+    background: rgba(12, 13, 28, 0.9) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 2: SHADOW & CITRUS (#141414 / #E4FD97)
+   -------------------------------------------------------------------------- */
+[data-theme="shadow-citrus"] {
+    color-scheme: dark;
+}
+
+[data-theme="shadow-citrus"],
+[data-theme="shadow-citrus"] body {
+    background-color: #141414 !important;
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(228, 253, 151, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(228, 253, 151, 0.04) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.85) 0%, transparent 100%) !important;
+    background-attachment: fixed !important;
+    color: #e4e4e7 !important;
+}
+
+[data-theme="shadow-citrus"] ::selection {
+    background: #E4FD97 !important;
+    color: #141414 !important;
+}
+
+/* Glassmorphic Surfaces for Shadow & Citrus */
+[data-theme="shadow-citrus"] aside,
+[data-theme="shadow-citrus"] header,
+[data-theme="shadow-citrus"] .bg-white,
+[data-theme="shadow-citrus"] .bg-white\/95,
+[data-theme="shadow-citrus"] .bg-white\/90,
+[data-theme="shadow-citrus"] #delete-modal > div:nth-child(2) {
+    background: rgba(24, 24, 24, 0.75) !important;
+    backdrop-filter: blur(18px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+    border-color: rgba(228, 253, 151, 0.18) !important;
+}
+
+[data-theme="shadow-citrus"] #mobile-drawer > div:nth-child(2) {
+    background: #181818 !important;
+    border-color: rgba(228, 253, 151, 0.25) !important;
+}
+
+/* Sub-panels and secondary cards */
+[data-theme="shadow-citrus"] main,
+[data-theme="shadow-citrus"] .bg-slate-50 {
+    background-color: transparent !important;
+}
+
+[data-theme="shadow-citrus"] .bg-slate-100,
+[data-theme="shadow-citrus"] .bg-slate-50\/50,
+[data-theme="shadow-citrus"] #mobile-theme-box {
+    background-color: rgba(34, 34, 34, 0.6) !important;
+    border-color: rgba(228, 253, 151, 0.14) !important;
+}
+
+/* Borders and Separators */
+[data-theme="shadow-citrus"] .border-slate-200,
+[data-theme="shadow-citrus"] .border-slate-200\/80,
+[data-theme="shadow-citrus"] .border-slate-100,
+[data-theme="shadow-citrus"] .border-slate-300,
+[data-theme="shadow-citrus"] .divide-slate-200,
+[data-theme="shadow-citrus"] .divide-slate-100 {
+    border-color: rgba(228, 253, 151, 0.14) !important;
+}
+
+/* Typography Overrides */
+[data-theme="shadow-citrus"] .text-slate-900,
+[data-theme="shadow-citrus"] .text-slate-800 {
+    color: #fafafa !important;
+}
+
+[data-theme="shadow-citrus"] .text-slate-700 {
+    color: #e4e4e7 !important;
+}
+
+[data-theme="shadow-citrus"] .text-slate-600,
+[data-theme="shadow-citrus"] .text-slate-500 {
+    color: #a1a1aa !important;
+}
+
+[data-theme="shadow-citrus"] .text-slate-400 {
+    color: #71717a !important;
+}
+
+/* Primary Action Buttons & Accents (Citrus #E4FD97) */
+[data-theme="shadow-citrus"] .bg-indigo-600,
+[data-theme="shadow-citrus"] a.bg-indigo-600,
+[data-theme="shadow-citrus"] button.bg-indigo-600 {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    border-color: #E4FD97 !important;
+    font-weight: 600 !important;
+}
+
+[data-theme="shadow-citrus"] .bg-indigo-600:hover,
+[data-theme="shadow-citrus"] a.bg-indigo-600:hover,
+[data-theme="shadow-citrus"] button.bg-indigo-600:hover {
+    background-color: #f1ffba !important;
+}
+
+/* Secondary Button / Cards */
+[data-theme="shadow-citrus"] a.bg-white,
+[data-theme="shadow-citrus"] button.bg-white {
+    background-color: rgba(30, 30, 30, 0.75) !important;
+    color: #f4f4f5 !important;
+    border-color: rgba(228, 253, 151, 0.2) !important;
+}
+
+/* Classical Black Hover for list items, rows, secondary buttons */
+[data-theme="shadow-citrus"] a.bg-white:hover,
+[data-theme="shadow-citrus"] button.bg-white:hover,
+[data-theme="shadow-citrus"] .hover\:bg-white:hover,
+[data-theme="shadow-citrus"] .hover\:bg-slate-50:hover,
+[data-theme="shadow-citrus"] .hover\:bg-slate-50\/70:hover,
+[data-theme="shadow-citrus"] .hover\:bg-slate-50\/80:hover,
+[data-theme="shadow-citrus"] .hover\:bg-slate-50\/60:hover,
+[data-theme="shadow-citrus"] .hover\:bg-slate-100:hover,
+[data-theme="shadow-citrus"] [class*="hover:bg-slate-50"]:hover,
+[data-theme="shadow-citrus"] [class*="hover:bg-slate-100"]:hover,
+[data-theme="shadow-citrus"] [class*="hover:bg-white"]:hover,
+[data-theme="shadow-citrus"] table tbody tr:hover,
+[data-theme="shadow-citrus"] .divide-slate-100 > *:hover {
+    background-color: rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Navigation: Active & Hover */
+[data-theme="shadow-citrus"] a.bg-indigo-50\/80,
+[data-theme="shadow-citrus"] .text-indigo-600.bg-indigo-50,
+[data-theme="shadow-citrus"] .theme-active-item {
+    background-color: rgba(228, 253, 151, 0.18) !important;
+    color: #E4FD97 !important;
+    border: none !important;
+}
+
+[data-theme="shadow-citrus"] a.bg-indigo-50\/80 svg,
+[data-theme="shadow-citrus"] .text-indigo-600 {
+    color: #E4FD97 !important;
+}
+
+/* Brand Gradient Avatar */
+[data-theme="shadow-citrus"] .bg-gradient-to-tr.from-indigo-600.to-indigo-500 {
+    background: linear-gradient(135deg, #141414 0%, #2f3818 60%, #E4FD97 100%) !important;
+    color: #141414 !important;
+}
+
+/* Inputs, Selects, Textareas */
+[data-theme="shadow-citrus"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="shadow-citrus"] select,
+[data-theme="shadow-citrus"] textarea {
+    background-color: rgba(18, 18, 18, 0.85) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(228, 253, 151, 0.22) !important;
+}
+
+[data-theme="shadow-citrus"] input::placeholder,
+[data-theme="shadow-citrus"] textarea::placeholder {
+    color: #71717a !important;
+}
+
+[data-theme="shadow-citrus"] input:focus,
+[data-theme="shadow-citrus"] select:focus,
+[data-theme="shadow-citrus"] textarea:focus {
+    border-color: #E4FD97 !important;
+    outline: 2px solid rgba(228, 253, 151, 0.4) !important;
+    outline-offset: 0 !important;
+}
+
+[data-theme="shadow-citrus"] select option {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+/* Tables - Theme-Wise Header (Citrus #E4FD97) */
+[data-theme="shadow-citrus"] table thead,
+[data-theme="shadow-citrus"] table thead tr,
+[data-theme="shadow-citrus"] table thead th,
+[data-theme="shadow-citrus"] table thead .theme-table-head-row {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    border-bottom: 1px solid rgba(20, 20, 20, 0.25) !important;
+}
+
+[data-theme="shadow-citrus"] table thead th,
+[data-theme="shadow-citrus"] table thead tr th,
+[data-theme="shadow-citrus"] .theme-table-head-row th {
+    color: #141414 !important;
+    background-color: #E4FD97 !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+}
+
+[data-theme="shadow-citrus"] table tbody tr:hover {
+    background-color: rgba(228, 253, 151, 0.06) !important;
+}
+
+/* Table - Clean Borderless Rows in Shadow Citrus */
+[data-theme="shadow-citrus"] #parties-data-container,
+[data-theme="shadow-citrus"] table,
+[data-theme="shadow-citrus"] table tbody,
+[data-theme="shadow-citrus"] table tbody tr,
+[data-theme="shadow-citrus"] table tbody td,
+[data-theme="shadow-citrus"] .divide-y > *,
+[data-theme="shadow-citrus"] .divide-slate-100 > *,
+[data-theme="shadow-citrus"] .divide-slate-200 > * {
+    border: none !important;
+    border-color: transparent !important;
+}
+
+/* Filter Submit Buttons */
+[data-theme="shadow-citrus"] button.bg-slate-900,
+[data-theme="shadow-citrus"] a.bg-slate-900 {
+    background-color: rgba(228, 253, 151, 0.14) !important;
+    color: #E4FD97 !important;
+    border: 1px solid rgba(228, 253, 151, 0.3) !important;
+}
+
+[data-theme="shadow-citrus"] button.bg-slate-900:hover,
+[data-theme="shadow-citrus"] a.bg-slate-900:hover {
+    background-color: rgba(228, 253, 151, 0.25) !important;
+    color: #ffffff !important;
+}
+
+/* Pagination Active Items */
+[data-theme="shadow-citrus"] [aria-current="page"] > span,
+[data-theme="shadow-citrus"] [aria-current="page"] {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    border-color: #E4FD97 !important;
+    font-weight: 700 !important;
+}
+
+/* Segmented Toggle Buttons (Active: Citrus #E4FD97) */
+[data-theme="shadow-citrus"] .theme-segment-wrapper {
+    background-color: rgba(18, 18, 18, 0.9) !important;
+    border: 1px solid rgba(228, 253, 151, 0.16) !important;
+}
+
+[data-theme="shadow-citrus"] .theme-segment-btn {
+    color: #a1a1aa !important;
+}
+
+[data-theme="shadow-citrus"] .theme-segment-btn:hover {
+    color: #fafafa !important;
+    background-color: rgba(228, 253, 151, 0.05) !important;
+}
+
+[data-theme="shadow-citrus"] input[type="radio"]:checked + .theme-segment-btn,
+[data-theme="shadow-citrus"] .peer:checked ~ .theme-segment-btn,
+[data-theme="shadow-citrus"] .peer:checked + .theme-segment-btn,
+[data-theme="shadow-citrus"] .theme-segment-wrapper .peer:checked ~ div {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    font-weight: 700 !important;
+    border: none !important;
+}
+
+[data-theme="shadow-citrus"] .peer:checked ~ .theme-segment-btn .theme-priority-dot-pri {
+    background-color: #047857 !important;
+}
+
+[data-theme="shadow-citrus"] .peer:checked ~ .theme-segment-btn .theme-priority-dot-non {
+    background-color: #3f3f46 !important;
+}
+
+/* KPI icon backdrops & badges - all matching borderless design */
+[data-theme="shadow-citrus"] .bg-indigo-50,
+[data-theme="shadow-citrus"] .bg-blue-50,
+[data-theme="shadow-citrus"] .bg-emerald-50,
+[data-theme="shadow-citrus"] .kpi-icon-box {
+    background-color: rgba(228, 253, 151, 0.18) !important;
+    color: #E4FD97 !important;
+    border: none !important;
+}
+
+[data-theme="shadow-citrus"] .kpi-icon-box svg {
+    color: #E4FD97 !important;
+    stroke: #E4FD97 !important;
+}
+
+[data-theme="shadow-citrus"] .bg-rose-50 {
+    background-color: rgba(244, 63, 94, 0.15) !important;
+    color: #fda4af !important;
+    border: none !important;
+}
+
+/* Theme-based Sign Out Button */
+[data-theme="shadow-citrus"] .theme-logout-btn {
+    background-color: rgba(228, 253, 151, 0.12) !important;
+    color: #E4FD97 !important;
+    border: 1px solid rgba(228, 253, 151, 0.3) !important;
+}
+
+[data-theme="shadow-citrus"] .theme-logout-btn:hover {
+    background-color: rgba(228, 253, 151, 0.25) !important;
+    color: #faffd6 !important;
+    border-color: #E4FD97 !important;
+}
+
+[data-theme="shadow-citrus"] .desktop-logout-btn {
+    color: #71717a !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+}
+
+[data-theme="shadow-citrus"] .desktop-logout-btn:hover {
+    color: #E4FD97 !important;
+    background-color: rgba(228, 253, 151, 0.14) !important;
+    border-color: rgba(228, 253, 151, 0.3) !important;
+}
+
+/* Mobile Sticky Bottom Nav */
+[data-theme="shadow-citrus"] nav.lg\:hidden {
+    background: rgba(20, 20, 20, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(150%) !important;
+    border-color: rgba(228, 253, 151, 0.16) !important;
+}
+
+/* Dropdown menu */
+[data-theme="shadow-citrus"] #theme-menu-dropdown {
+    background: rgba(24, 24, 24, 0.95) !important;
+    border: 1px solid rgba(228, 253, 151, 0.25) !important;
+    backdrop-filter: blur(24px) !important;
+}
+
+/* Scrollbars */
+[data-theme="shadow-citrus"] ::-webkit-scrollbar-track {
+    background: #141414 !important;
+}
+[data-theme="shadow-citrus"] ::-webkit-scrollbar-thumb {
+    background: rgba(228, 253, 151, 0.35) !important;
+}
+[data-theme="shadow-citrus"] ::-webkit-scrollbar-thumb:hover {
+    background: #E4FD97 !important;
+}
+
+/* Pulse Marker & Map Tiles */
+[data-theme="shadow-citrus"] .user-pulse-marker {
+    background-color: #E4FD97 !important;
+    border: 3px solid #141414 !important;
+}
+
+[data-theme="shadow-citrus"] .leaflet-tile {
+    filter: brightness(0.72) invert(1) contrast(1.5) hue-rotate(60deg) saturate(0.2) !important;
+}
+
+[data-theme="shadow-citrus"] .leaflet-control-zoom a,
+[data-theme="shadow-citrus"] .leaflet-bar a {
+    background: rgba(24, 24, 24, 0.85) !important;
+    color: #E4FD97 !important;
+    border-color: rgba(228, 253, 151, 0.25) !important;
+}
+
+[data-theme="shadow-citrus"] .leaflet-popup-content-wrapper {
+    background: rgba(24, 24, 24, 0.9) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(228, 253, 151, 0.25) !important;
+    color: #fafafa !important;
+}
+
+[data-theme="shadow-citrus"] .leaflet-popup-tip {
+    background: rgba(24, 24, 24, 0.9) !important;
+}
+
+/* ==========================================================================
+   THEME-WISE SELECT DROPDOWNS (NATIVE & CUSTOM COMPONENT)
+   ========================================================================== */
+
+/* Native select fallback styling */
+[data-theme="shadow-citrus"] select {
+    accent-color: #E4FD97 !important;
+}
+[data-theme="shadow-citrus"] select option {
+    background-color: #181818 !important;
+    color: #ffffff !important;
+}
+[data-theme="shadow-citrus"] select option:checked,
+[data-theme="shadow-citrus"] select option:hover,
+[data-theme="shadow-citrus"] select option:focus {
+    background: #E4FD97 linear-gradient(0deg, #E4FD97 0%, #E4FD97 100%) !important;
+    color: #141414 !important;
+}
+
+[data-theme="black-iris"] select {
+    accent-color: #A0BDDB !important;
+}
+[data-theme="black-iris"] select option {
+    background-color: #0c0d1c !important;
+    color: #ffffff !important;
+}
+[data-theme="black-iris"] select option:checked,
+[data-theme="black-iris"] select option:hover,
+[data-theme="black-iris"] select option:focus {
+    background: #A0BDDB linear-gradient(0deg, #A0BDDB 0%, #A0BDDB 100%) !important;
+    color: #080813 !important;
+}
+
+/* Custom Select Container & Dropdown Popover */
+.custom-select-container {
+    position: relative;
+    user-select: none;
+}
+
+.custom-select-trigger {
+    transition: all 0.2s ease;
+}
+
+.custom-select-option {
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* 1. Classic / Default Theme */
+[data-theme="default"] .custom-select-trigger,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-trigger {
+    background-color: #ffffff;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+}
+
+[data-theme="default"] .custom-select-trigger.open,
+[data-theme="default"] .custom-select-trigger:focus,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-trigger.open,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-trigger:focus {
+    border-color: #4f46e5;
+    outline: 2px solid rgba(79, 70, 229, 0.2);
+}
+
+[data-theme="default"] .custom-select-chevron,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-chevron {
+    color: #64748b;
+}
+
+[data-theme="default"] .custom-select-menu,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-menu {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+[data-theme="default"] .custom-select-option,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-option {
+    color: #334155;
+}
+
+[data-theme="default"] .custom-select-option:not(.selected):hover,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-option:not(.selected):hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+[data-theme="default"] .custom-select-option.selected,
+html:not([data-theme="black-iris"]):not([data-theme="shadow-citrus"]) .custom-select-option.selected {
+    background-color: #e0e7ff;
+    color: #4338ca;
+    font-weight: 700;
+}
+
+/* 2. Theme 1: Black Iris & Frozen (#080813 / #A0BDDB) */
+[data-theme="black-iris"] .custom-select-trigger {
+    background-color: rgba(8, 8, 19, 0.9) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(160, 189, 219, 0.22) !important;
+}
+
+[data-theme="black-iris"] .custom-select-trigger.open,
+[data-theme="black-iris"] .custom-select-trigger:focus {
+    border-color: #A0BDDB !important;
+    outline: 2px solid rgba(160, 189, 219, 0.4) !important;
+}
+
+[data-theme="black-iris"] .custom-select-chevron {
+    color: #94a3b8 !important;
+}
+
+[data-theme="black-iris"] .custom-select-menu {
+    background-color: #0c0d1c !important;
+    border: 1px solid rgba(160, 189, 219, 0.25) !important;
+}
+
+[data-theme="black-iris"] .custom-select-option {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="black-iris"] .custom-select-option:not(.selected):hover {
+    background-color: rgba(160, 189, 219, 0.15) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="black-iris"] .custom-select-option.selected {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    font-weight: 700 !important;
+}
+
+/* 3. Theme 2: Shadow & Citrus (#141414 / #E4FD97) */
+[data-theme="shadow-citrus"] .custom-select-trigger {
+    background-color: rgba(18, 18, 18, 0.9) !important;
+    color: #fafafa !important;
+    border: 1px solid rgba(228, 253, 151, 0.22) !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-trigger.open,
+[data-theme="shadow-citrus"] .custom-select-trigger:focus {
+    border-color: #E4FD97 !important;
+    outline: 2px solid rgba(228, 253, 151, 0.4) !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-chevron {
+    color: #a1a1aa !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-menu {
+    background-color: #1a1a1a !important;
+    border: 1px solid rgba(228, 253, 151, 0.25) !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-option {
+    color: #d4d4d8 !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-option:not(.selected):hover {
+    background-color: rgba(228, 253, 151, 0.15) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="shadow-citrus"] .custom-select-option.selected {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   THEME-AWARE ACCURATE DISTANCE BADGE (BORDERLESS CLEAN PILL)
+   ========================================================================== */
+.theme-distance-pill {
+    background-color: #e0e7ff !important;
+    color: #4338ca !important;
+    border: none !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+[data-theme="black-iris"] .theme-distance-pill {
+    background-color: rgba(160, 189, 219, 0.15) !important;
+    color: #A0BDDB !important;
+    border: none !important;
+}
+
+[data-theme="shadow-citrus"] .theme-distance-pill {
+    background-color: rgba(228, 253, 151, 0.15) !important;
+    color: #E4FD97 !important;
+    border: none !important;
+}
+
+/* Ensure custom select menus float above all maps and cards */
+#map-filter-bar {
+    position: relative !important;
+    z-index: 1200 !important;
+}
+
+#map-split-container {
+    position: relative !important;
+    z-index: 1 !important;
+    isolation: isolate !important;
+}
+
+.custom-select-container {
+    position: relative;
+}
+
+.custom-select-menu {
+    position: absolute;
+    top: calc(100% + 6px) !important;
+    left: 0 !important;
+    min-width: 100% !important;
+    width: max-content !important;
+    max-height: 260px !important;
+    overflow-y: auto !important;
+    z-index: 99999 !important;
+}
+
+/* ==========================================================================
+   MODAL FILTER POPUP & SEGMENTED PILL BUTTONS (REFERENCE DESIGN)
+   ========================================================================== */
+.filter-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    width: 100%;
+}
+
+.filter-pill-btn:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.filter-pill-btn.active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border-color: #2563eb !important;
+}
+
+.filter-modal-apply-btn {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.filter-modal-apply-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.filter-modal-reset-btn {
+    color: #64748b;
+}
+
+.filter-modal-reset-btn:hover {
+    color: #0f172a;
+    text-decoration: underline;
+}
+
+/* Theme: Black Iris & Frozen (#A0BDDB) */
+[data-theme="black-iris"] #filter-modal-card {
+    background: rgba(14, 16, 32, 0.95) !important;
+    border-color: rgba(160, 189, 219, 0.22) !important;
+    backdrop-filter: blur(24px) !important;
+}
+
+[data-theme="black-iris"] .filter-pill-btn {
+    background-color: rgba(22, 25, 48, 0.75) !important;
+    color: #94a3b8 !important;
+    border-color: rgba(160, 189, 219, 0.12) !important;
+}
+
+[data-theme="black-iris"] .filter-pill-btn:hover {
+    background-color: rgba(160, 189, 219, 0.12) !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="black-iris"] .filter-pill-btn.active {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    font-weight: 700 !important;
+    border-color: #A0BDDB !important;
+}
+
+[data-theme="black-iris"] .filter-modal-apply-btn {
+    background-color: #A0BDDB !important;
+    color: #080813 !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="black-iris"] .filter-modal-apply-btn:hover {
+    background-color: #b8d2ec !important;
+}
+
+[data-theme="black-iris"] .filter-modal-reset-btn {
+    color: #94a3b8 !important;
+}
+
+[data-theme="black-iris"] .filter-modal-reset-btn:hover {
+    color: #f8fafc !important;
+}
+
+[data-theme="black-iris"] #active-filter-chips > span {
+    background-color: rgba(160, 189, 219, 0.15) !important;
+    color: #A0BDDB !important;
+    border: none !important;
+}
+
+[data-theme="black-iris"] .filter-trigger-btn {
+    color: #94a3b8 !important;
+}
+
+[data-theme="black-iris"] .filter-trigger-btn:hover {
+    background-color: rgba(160, 189, 219, 0.14) !important;
+    color: #A0BDDB !important;
+}
+
+/* Theme: Shadow & Citrus (#E4FD97) */
+[data-theme="shadow-citrus"] #filter-modal-card {
+    background: rgba(20, 20, 20, 0.96) !important;
+    border-color: rgba(228, 253, 151, 0.22) !important;
+    backdrop-filter: blur(24px) !important;
+}
+
+[data-theme="shadow-citrus"] .filter-pill-btn {
+    background-color: rgba(30, 30, 30, 0.8) !important;
+    color: #a1a1aa !important;
+    border-color: rgba(228, 253, 151, 0.12) !important;
+}
+
+[data-theme="shadow-citrus"] .filter-pill-btn:hover {
+    background-color: rgba(228, 253, 151, 0.12) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="shadow-citrus"] .filter-pill-btn.active {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    font-weight: 700 !important;
+    border-color: #E4FD97 !important;
+}
+
+[data-theme="shadow-citrus"] .filter-modal-apply-btn {
+    background-color: #E4FD97 !important;
+    color: #141414 !important;
+    font-weight: 700 !important;
+}
+
+[data-theme="shadow-citrus"] .filter-modal-apply-btn:hover {
+    background-color: #effec2 !important;
+}
+
+[data-theme="shadow-citrus"] .filter-modal-reset-btn {
+    color: #a1a1aa !important;
+}
+
+[data-theme="shadow-citrus"] .filter-modal-reset-btn:hover {
+    color: #ffffff !important;
+}
+
+[data-theme="shadow-citrus"] #active-filter-chips > span {
+    background-color: rgba(228, 253, 151, 0.15) !important;
+    color: #E4FD97 !important;
+    border: none !important;
+}
+
+[data-theme="shadow-citrus"] .filter-trigger-btn {
+    color: #a1a1aa !important;
+}
+
+[data-theme="shadow-citrus"] .filter-trigger-btn:hover {
+    background-color: rgba(228, 253, 151, 0.14) !important;
+    color: #E4FD97 !important;
+}
+
+/* ==========================================================================
+   THEME ADAPTATIONS: LEAD BADGE & LEAD CHECKBOX
+   ========================================================================== */
+.theme-lead-badge {
+    background-color: #faf5ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+}
+
+.theme-lead-checkbox {
+    accent-color: #6366f1;
+}
+
+/* Theme 1: Black Iris & Frozen (#A0BDDB) */
+[data-theme="black-iris"] .theme-lead-badge {
+    background-color: rgba(160, 189, 219, 0.16) !important;
+    color: #A0BDDB !important;
+    border: 1px solid rgba(160, 189, 219, 0.28) !important;
+}
+
+[data-theme="black-iris"] .theme-lead-checkbox {
+    accent-color: #A0BDDB !important;
+}
+
+/* Theme 2: Shadow & Citrus (#E4FD97) */
+[data-theme="shadow-citrus"] .theme-lead-badge {
+    background-color: rgba(228, 253, 151, 0.15) !important;
+    color: #E4FD97 !important;
+    border: 1px solid rgba(228, 253, 151, 0.25) !important;
+}
+
+[data-theme="shadow-citrus"] .theme-lead-checkbox {
+    accent-color: #E4FD97 !important;
+}
+
+
+
+
